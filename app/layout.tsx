@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { ConvexReactClient } from "convex/react";
 import Header from "@/components/Header";
+import SyncUserWithConvex from "@/components/SyncUserWithConvex";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       <ConvexClientProvider>
         <ClerkProvider>
           <Header/>
+          <SyncUserWithConvex/>
           {children}
         </ClerkProvider>
       </ConvexClientProvider>
