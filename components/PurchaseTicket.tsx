@@ -8,6 +8,7 @@ import { Ticket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReleaseTicket from "./ReleaseTicket";
+import { createStripeCheckoutSession } from "@/actions/createStripeCheckoutSession";
 
 const PurchaseTicket = ({ eventId }: { eventId: Id<"events"> }) => {
   const router = useRouter();
@@ -50,12 +51,29 @@ const PurchaseTicket = ({ eventId }: { eventId: Id<"events"> }) => {
   },[offerExpiresAt, isExpired])
 
   // create Stripe Checkout
-
   const handlePurchase = async () => {
-    if(!user || !queuePosition || queuePosition.status !== "offered"){
-        return null;
+    if (!user) return;
+
+    try {
+        setIsLoading(true);
+        const { sessionUrl } = await createStripeCheckoutSession({
+            eventId
+        });
+
+        if (sessionUrl) {
+            router.push(sessionUrl);
+        }
+
+    } catch (error) {
+
+    } finally {
+        setIsLoading(false);
     }
   }
+
+  if(!user || !queuePosition || queuePosition.status !== "offered"){
+    return null;
+}
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-200">
