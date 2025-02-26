@@ -65,7 +65,7 @@ const PurchaseTicket = ({ eventId }: { eventId: Id<"events"> }) => {
         }
 
     } catch (error) {
-
+        console.error("Failed to create Stripe checkout session:", error);
     } finally {
         setIsLoading(false);
     }
