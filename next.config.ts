@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       {
         hostname: "determined-parrot-937.convex.cloud",
         protocol: "https"
+      },
+      {
+        hostname: "modest-stoat-127.convex.cloud",
+        protocol: "https"
       }
     ]
   }
